@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'quizbrain.dart';
+
+var quizBrain = QuizBrain();
+int nextQuestionNumber = quizBrain.questionPicker();
 
 void main() {
+  print('----- void main is called');
   runApp(const MyApp());
+  print('nextQuestionNumber = $nextQuestionNumber');
 }
 
 class MyApp extends StatelessWidget {
@@ -13,7 +20,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: const Text('Is the following question true?',
+          title: const Text('Is the following statement true?',
           style: TextStyle(
             fontWeight: FontWeight.bold
           ),),
@@ -33,6 +40,38 @@ class MyBodyApp extends StatefulWidget {
 }
 
 class _MyBodyAppState extends State<MyBodyApp> {
+
+  List<Icon> iconList = [];
+
+  void addIcon({required bool givenAnswer, required int QN}){
+    print('---- addIcon is called');
+    bool answerMatch = quizBrain.answerChecker(givenAnswer: givenAnswer, QN: QN);
+
+    int iconListLenght = iconList.length;
+    if (iconListLenght >= 10){
+      print('iconListLenght = $iconListLenght');
+      print('We are removing the first icon on the list.');
+      iconList.removeAt(0);
+      print('iconListLenght = $iconListLenght');
+    } else {
+      print('iconListLenght = $iconListLenght');
+      print('So we are not going to do anything');
+      }
+
+    if (answerMatch){
+      print('correct icon will be added');
+      setState(() {
+        iconList.add(Icon(Icons.check, color: Colors.green),);
+      });
+    } else {
+      print('wrong icon will be added');
+      setState(() {
+        iconList.add(Icon(Icons.close, color: Colors.red),);
+      });
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,7 +82,7 @@ class _MyBodyAppState extends State<MyBodyApp> {
         children: [
           Expanded(
               flex: 5,
-              child: Center(child: Text('Going to be a question',
+              child: Center(child: Text(quizBrain.questionText(QN: nextQuestionNumber),
               style: TextStyle(
                 fontSize: 30,
                 color: Colors.white
@@ -66,6 +105,11 @@ class _MyBodyAppState extends State<MyBodyApp> {
                 ),
                 onPressed: (){
                   print('true is pressed');
+                  addIcon(givenAnswer: true, QN: nextQuestionNumber);
+                  setState(() {
+                    nextQuestionNumber= quizBrain.questionPicker();
+                  });
+                  nextQuestionNumber = quizBrain.questionPicker();
                 },
               ),
           ),
@@ -87,10 +131,14 @@ class _MyBodyAppState extends State<MyBodyApp> {
               ),
               onPressed: (){
                 print('false is pressed');
+                addIcon(givenAnswer: false, QN: nextQuestionNumber);
+                setState(() {
+                  nextQuestionNumber = quizBrain.questionPicker();
+                });
               },
             ),
           ),
-          Row(children: [],)
+          Row(children: iconList),
         ],
       ),
     );

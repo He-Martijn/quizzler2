@@ -2,13 +2,15 @@ class Question {
   String questionText = '';
   bool questionAnswer = false;
 
-  Question({required String q,required bool a}){
+  Question(String q,bool a){
 
     questionText = q;
     questionAnswer = a;
 
 
   }
+
+
 
 
 
