@@ -104,7 +104,7 @@ class _MyBodyAppState extends State<MyBodyApp> {
                   color: Colors.green.shade400,
                 ),
                 onPressed: (){
-                  print('true is pressed');
+                  print('===========>>>>> true is pressed');
                   addIcon(givenAnswer: true, QN: nextQuestionNumber);
                   setState(() {
                     nextQuestionNumber= quizBrain.questionPicker();
@@ -130,7 +130,7 @@ class _MyBodyAppState extends State<MyBodyApp> {
                 color: Colors.red,
               ),
               onPressed: (){
-                print('false is pressed');
+                print('===========>>>>> false is pressed');
                 addIcon(givenAnswer: false, QN: nextQuestionNumber);
                 setState(() {
                   nextQuestionNumber = quizBrain.questionPicker();

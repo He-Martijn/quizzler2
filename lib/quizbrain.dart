@@ -5,7 +5,7 @@ import 'question.dart';
 class QuizBrain {
 
   // Questions are directly copied from https://github.com/londonappbrewery/quizzler-flutter/blob/master/README.md
-  List<Question> questionBank = [
+  List<Question> _questionBank = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -26,7 +26,7 @@ class QuizBrain {
   bool answerChecker({required bool givenAnswer, required int QN}) {
     print('----- answerChecker is called');
 
-    bool correctAnswer = questionBank[QN].questionAnswer;
+    bool correctAnswer = _questionBank[QN].questionAnswer;
     print('The correct answers is $correctAnswer');
     print('The given answers is $givenAnswer');
 
@@ -42,7 +42,7 @@ class QuizBrain {
   int questionPicker(){
     print('----- questionPicker is called');
     //int amountOfQuestions = QL.length;
-    int amountOfQuestions = questionBank.length;
+    int amountOfQuestions = _questionBank.length;
     print('amountOfQuestions = $amountOfQuestions');
     int questionNumber = Random().nextInt(amountOfQuestions);
     print('questionNumber = $questionNumber');
@@ -52,7 +52,7 @@ class QuizBrain {
 
   String questionText({required int QN}){
 
-    String question = questionBank[QN].questionText;
+    String question = _questionBank[QN].questionText;
 
     return question;
   }
