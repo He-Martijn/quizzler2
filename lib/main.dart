@@ -41,37 +41,6 @@ class MyBodyApp extends StatefulWidget {
 
 class _MyBodyAppState extends State<MyBodyApp> {
 
-  List<Icon> iconList = [];
-
-  void addIcon({required bool givenAnswer, required int QN}){
-    print('---- addIcon is called');
-    bool answerMatch = quizBrain.answerChecker(givenAnswer: givenAnswer, QN: QN);
-
-    int iconListLenght = iconList.length;
-    if (iconListLenght >= 10){
-      print('iconListLenght = $iconListLenght');
-      print('We are removing the first icon on the list.');
-      iconList.removeAt(0);
-      print('iconListLenght = $iconListLenght');
-    } else {
-      print('iconListLenght = $iconListLenght');
-      print('So we are not going to do anything');
-      }
-
-    if (answerMatch){
-      print('correct icon will be added');
-      setState(() {
-        iconList.add(Icon(Icons.check, color: Colors.green),);
-      });
-    } else {
-      print('wrong icon will be added');
-      setState(() {
-        iconList.add(Icon(Icons.close, color: Colors.red),);
-      });
-    }
-
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -105,9 +74,8 @@ class _MyBodyAppState extends State<MyBodyApp> {
                 ),
                 onPressed: (){
                   print('===========>>>>> true is pressed');
-                  addIcon(givenAnswer: true, QN: nextQuestionNumber);
                   setState(() {
-                    nextQuestionNumber= quizBrain.questionPicker();
+                    quizBrain.addIcon(givenAnswer: true, QN: nextQuestionNumber);
                   });
                   nextQuestionNumber = quizBrain.questionPicker();
                 },
@@ -131,14 +99,14 @@ class _MyBodyAppState extends State<MyBodyApp> {
               ),
               onPressed: (){
                 print('===========>>>>> false is pressed');
-                addIcon(givenAnswer: false, QN: nextQuestionNumber);
                 setState(() {
-                  nextQuestionNumber = quizBrain.questionPicker();
+                  quizBrain.addIcon(givenAnswer: false, QN: nextQuestionNumber);
                 });
+                nextQuestionNumber = quizBrain.questionPicker();
               },
             ),
           ),
-          Row(children: iconList),
+          Row(children: quizBrain.iconList),
         ],
       ),
     );

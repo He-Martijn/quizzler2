@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'dart:math';
 import 'question.dart';
 
@@ -22,8 +23,10 @@ class QuizBrain {
 
   ];
 
+  List<Icon> iconList = [];
 
-  bool answerChecker({required bool givenAnswer, required int QN}) {
+
+  bool _answerChecker({required bool givenAnswer, required int QN}) {
     print('----- answerChecker is called');
 
     bool correctAnswer = _questionBank[QN].questionAnswer;
@@ -56,6 +59,34 @@ class QuizBrain {
 
     return question;
   }
+
+  void addIcon({required bool givenAnswer, required int QN}){
+    print('---- addIcon is called');
+    bool answerMatch = _answerChecker(givenAnswer: givenAnswer, QN: QN);
+
+    int iconListLenght = iconList.length;
+    if (iconListLenght >= 10){
+      print('iconListLenght = $iconListLenght');
+      print('We are removing the first icon on the list.');
+      iconList.removeAt(0);
+      print('iconListLenght = $iconListLenght');
+    } else {
+      print('iconListLenght = $iconListLenght');
+      print('So we are not going to do anything');
+    }
+
+    if (answerMatch){
+      print('correct icon will be added');
+      iconList.add(Icon(Icons.check, color: Colors.green),);
+    } else {
+      print('wrong icon will be added');
+      iconList.add(Icon(Icons.close, color: Colors.red),);
+    }
+
+  }
+
+
+
 
 }
 
