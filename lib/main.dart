@@ -52,7 +52,7 @@ class _MyBodyAppState extends State<MyBodyApp> {
           Expanded(
               flex: 5,
               child: Center(child: Text(quizBrain.questionText(QN: nextQuestionNumber),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 30,
                 color: Colors.white
               ),))),

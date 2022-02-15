@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'question.dart';
@@ -6,7 +6,7 @@ import 'question.dart';
 class QuizBrain {
 
   // Questions are directly copied from https://github.com/londonappbrewery/quizzler-flutter/blob/master/README.md
-  List<Question> _questionBank = [
+  final List<Question> _questionBank = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -24,7 +24,6 @@ class QuizBrain {
   ];
 
   List<Icon> iconList = [];
-
 
   bool _answerChecker({required bool givenAnswer, required int QN}) {
     print('----- answerChecker is called');
@@ -72,7 +71,7 @@ class QuizBrain {
       print('iconListLenght = $iconListLenght');
     } else {
       print('iconListLenght = $iconListLenght');
-      print('So we are not going to do anything');
+      print('So we are not removing icons from the list');
     }
 
     if (answerMatch){
